@@ -1,6 +1,7 @@
 #include "clrhost.h"
 using namespace std;
 #define CORECLR_DIR "C:\\Program Files (x86)\\dotnet\\shared\\Microsoft.NETCore.App\\5.0.8"
+//TODO: Change how we find the clr
 
 /// <summary>
 /// This will load a managed assembly from native. The assembly entrypoint should have any arguments.
@@ -11,8 +12,8 @@ using namespace std;
 /// <param name="entryClassName"></param>
 /// <param name="entrySubroutine"></param>
 /// <returns></returns>
-bool clrhost::LoadManagedAssembly(const char* filePath, const char* appDomainId, const char* managedAssemblyName, const char* entryClassName, const char* entrySubroutine) {
-	// Current directory is where Exanima.exe is.
+bool clrhost::LoadManagedAssembly(const char* filePath, const char* appDomainId, const char* managedAssemblyName,
+	const char* entryClassName, const char* entrySubroutine) {
 
 	char runtimeDirectory[MAX_PATH];
 	GetFullPathNameA(filePath, MAX_PATH, runtimeDirectory, NULL);
@@ -88,6 +89,7 @@ void clrhost::BuildTpaList(const char* directory, string& tpaList) {
 			tpaList.append(findData.cFileName);
 			tpaList.append(";");
 		} while (FindNextFileA(fileHandle, &findData));
+
 		FindClose(fileHandle);
 	}
 }
